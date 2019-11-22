@@ -6,17 +6,18 @@
 package negocio;
 
 import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
 
 /**
  *
  * @author Alejandro Castro M
  */
 @Stateless
-public class FacadeSolicitarInformacioSubastaSF implements FacadeSolicitarInformacioSubastaSFLocal {
+@LocalBean
+public class FacadeProcesarRFQ {
 
-    @Override
-    public void solicitarInformacionSubastaSF() {
-        System.out.println("Solicitar Informacion Subasta SF");
+    public void procesarRFQ() {
+        
     }
 
     // Add business logic below. (Right-click in editor and choose

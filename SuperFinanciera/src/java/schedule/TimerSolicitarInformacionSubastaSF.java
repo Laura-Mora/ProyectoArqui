@@ -6,8 +6,10 @@
 package schedule;
 
 import java.util.Date;
+import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import negocio.FacadeSolicitarInformacionSubastaSF;
 
 /**
  *
@@ -15,13 +17,18 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class TimerSolicitarInformacionSubastaSF implements TimerSolicitarInformacionSubastaSFLocal {
+    @EJB
+    private FacadeSolicitarInformacionSubastaSF facadeSolicitarInformacionSubastaSF;
 
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "10", second = "*")
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*")
     @Override
     public void myTimer() {
         System.out.println("Timer event: " + new Date());
+        facadeSolicitarInformacionSubastaSF.solicitarInformacionSubastas();
+        
     }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+ 
 }
