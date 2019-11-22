@@ -43,5 +43,6 @@ public class FacadeSolicitarInformacionSubasta {
             Logger.getLogger(FacadeSolicitarInformacionSubasta.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;        
-    } 
+    }
+    
 }
