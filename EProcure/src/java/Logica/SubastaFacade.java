@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Alejandro Castro M
  */
 @Stateless
-public class SubastaFacade extends AbstractFacade<Subasta> implements SubastaFacadeRemote {
+public class SubastaFacade extends AbstractFacade<Subasta> implements Logica.SubastaFacadeRemote {
     @PersistenceContext(unitName = "EProcurePU")
     private EntityManager em;
 

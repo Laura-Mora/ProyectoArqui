@@ -7,7 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,17 +19,21 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Entity
 @Table(name = "PRODUCTO")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")})
+    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
+    @NamedQuery(name = "Producto.findByIdproducto", query = "SELECT p FROM Producto p WHERE p.idproducto = :idproducto"),
+    @NamedQuery(name = "Producto.findByItem", query = "SELECT p FROM Producto p WHERE p.item = :item")})
 public class Producto implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -44,10 +48,10 @@ public class Producto implements Serializable {
     private String descripcion;
     @JoinTable(name = "OFERTADOS", joinColumns = {
         @JoinColumn(name = "PRODUCTO_IDPRODUCTO", referencedColumnName = "IDPRODUCTO")}, inverseJoinColumns = {
-        @JoinColumn(name = "SUBASTA_IDSUBASTA", referencedColumnName = "IDSUBASTA")
-        , @JoinColumn(name = "SUBASTA_COMPRADOR_ID", referencedColumnName = "COMPRADOR_USER_ID_USUARIO")})
+        @JoinColumn(name = "SUBASTA_IDSUBASTA", referencedColumnName = "IDSUBASTA"),
+        @JoinColumn(name = "SUBASTA_COMPRADOR_ID", referencedColumnName = "COMPRADOR_USER_ID_USUARIO")})
     @ManyToMany
-    private Collection<Subasta> subastaCollection;
+    private List<Subasta> subastaList;
 
     public Producto() {
     }
@@ -85,12 +89,13 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Collection<Subasta> getSubastaCollection() {
-        return subastaCollection;
+    @XmlTransient
+    public List<Subasta> getSubastaList() {
+        return subastaList;
     }
 
-    public void setSubastaCollection(Collection<Subasta> subastaCollection) {
-        this.subastaCollection = subastaCollection;
+    public void setSubastaList(List<Subasta> subastaList) {
+        this.subastaList = subastaList;
     }
 
     @Override

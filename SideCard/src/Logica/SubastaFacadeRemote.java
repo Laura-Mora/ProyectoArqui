@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Remote
 public interface SubastaFacadeRemote {

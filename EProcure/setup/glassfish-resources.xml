@@ -10,5 +10,5 @@
         <property name="URL" value="jdbc:oracle:thin:@oracledb.cdpsqe4srlmz.us-east-2.rds.amazonaws.com:1521:ORCL"/>
         <property name="driverClass" value="oracle.jdbc.OracleDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="oracleJDNI" object-type="user" pool-name="oracle-thin_ORCL_adminPool"/>
+    <jdbc-resource enabled="true" jndi-name="OracleJDBC" object-type="user" pool-name="oracle-thin_ORCL_adminPool"/>
 </resources>

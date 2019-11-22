@@ -18,17 +18,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Entity
 @Table(name = "OFERTA")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Oferta.findAll", query = "SELECT o FROM Oferta o")})
+    @NamedQuery(name = "Oferta.findAll", query = "SELECT o FROM Oferta o"),
+    @NamedQuery(name = "Oferta.findByIdoferta", query = "SELECT o FROM Oferta o WHERE o.idoferta = :idoferta"),
+    @NamedQuery(name = "Oferta.findByMonto", query = "SELECT o FROM Oferta o WHERE o.monto = :monto")})
 public class Oferta implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -42,8 +45,8 @@ public class Oferta implements Serializable {
     @ManyToOne(optional = false)
     private Proveedor proveedorUserIdUsuario;
     @JoinColumns({
-        @JoinColumn(name = "SUBASTA_IDSUBASTA", referencedColumnName = "IDSUBASTA")
-        , @JoinColumn(name = "SUBASTA_COMPRADOR_ID", referencedColumnName = "COMPRADOR_USER_ID_USUARIO")})
+        @JoinColumn(name = "SUBASTA_IDSUBASTA", referencedColumnName = "IDSUBASTA"),
+        @JoinColumn(name = "SUBASTA_COMPRADOR_ID", referencedColumnName = "COMPRADOR_USER_ID_USUARIO")})
     @ManyToOne(optional = false)
     private Subasta subasta;
 

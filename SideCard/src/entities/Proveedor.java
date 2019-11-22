@@ -7,7 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,17 +17,24 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Entity
 @Table(name = "PROVEEDOR")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p")})
+    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
+    @NamedQuery(name = "Proveedor.findByUserIdUsuario", query = "SELECT p FROM Proveedor p WHERE p.userIdUsuario = :userIdUsuario"),
+    @NamedQuery(name = "Proveedor.findByUserUsername", query = "SELECT p FROM Proveedor p WHERE p.userUsername = :userUsername"),
+    @NamedQuery(name = "Proveedor.findByUserContrasena", query = "SELECT p FROM Proveedor p WHERE p.userContrasena = :userContrasena"),
+    @NamedQuery(name = "Proveedor.findByUserNombre", query = "SELECT p FROM Proveedor p WHERE p.userNombre = :userNombre"),
+    @NamedQuery(name = "Proveedor.findByProEmpresa", query = "SELECT p FROM Proveedor p WHERE p.proEmpresa = :proEmpresa")})
 public class Proveedor implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -47,9 +54,9 @@ public class Proveedor implements Serializable {
     @Column(name = "PRO_EMPRESA")
     private String proEmpresa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedorUserIdUsuario")
-    private Collection<Oferta> ofertaCollection;
+    private List<Oferta> ofertaList;
     @OneToMany(mappedBy = "proveedorUserIdUsuario")
-    private Collection<Subasta> subastaCollection;
+    private List<Subasta> subastaList;
 
     public Proveedor() {
     }
@@ -106,20 +113,22 @@ public class Proveedor implements Serializable {
         this.proEmpresa = proEmpresa;
     }
 
-    public Collection<Oferta> getOfertaCollection() {
-        return ofertaCollection;
+    @XmlTransient
+    public List<Oferta> getOfertaList() {
+        return ofertaList;
     }
 
-    public void setOfertaCollection(Collection<Oferta> ofertaCollection) {
-        this.ofertaCollection = ofertaCollection;
+    public void setOfertaList(List<Oferta> ofertaList) {
+        this.ofertaList = ofertaList;
     }
 
-    public Collection<Subasta> getSubastaCollection() {
-        return subastaCollection;
+    @XmlTransient
+    public List<Subasta> getSubastaList() {
+        return subastaList;
     }
 
-    public void setSubastaCollection(Collection<Subasta> subastaCollection) {
-        this.subastaCollection = subastaCollection;
+    public void setSubastaList(List<Subasta> subastaList) {
+        this.subastaList = subastaList;
     }
 
     @Override

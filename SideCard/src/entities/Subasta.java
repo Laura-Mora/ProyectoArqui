@@ -7,8 +7,8 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,17 +23,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Entity
 @Table(name = "SUBASTA")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Subasta.findAll", query = "SELECT s FROM Subasta s")})
+    @NamedQuery(name = "Subasta.findAll", query = "SELECT s FROM Subasta s"),
+    @NamedQuery(name = "Subasta.findByIdsubasta", query = "SELECT s FROM Subasta s WHERE s.subastaPK.idsubasta = :idsubasta"),
+    @NamedQuery(name = "Subasta.findByLimiteproveedoresganadores", query = "SELECT s FROM Subasta s WHERE s.limiteproveedoresganadores = :limiteproveedoresganadores"),
+    @NamedQuery(name = "Subasta.findByLimitecantidadpagoaproveedor", query = "SELECT s FROM Subasta s WHERE s.limitecantidadpagoaproveedor = :limitecantidadpagoaproveedor"),
+    @NamedQuery(name = "Subasta.findByLimitemontototal", query = "SELECT s FROM Subasta s WHERE s.limitemontototal = :limitemontototal"),
+    @NamedQuery(name = "Subasta.findByInicio", query = "SELECT s FROM Subasta s WHERE s.inicio = :inicio"),
+    @NamedQuery(name = "Subasta.findByFin", query = "SELECT s FROM Subasta s WHERE s.fin = :fin"),
+    @NamedQuery(name = "Subasta.findByAlgoritmo", query = "SELECT s FROM Subasta s WHERE s.algoritmo = :algoritmo"),
+    @NamedQuery(name = "Subasta.findByPublica", query = "SELECT s FROM Subasta s WHERE s.publica = :publica"),
+    @NamedQuery(name = "Subasta.findByNumronda", query = "SELECT s FROM Subasta s WHERE s.numronda = :numronda"),
+    @NamedQuery(name = "Subasta.findByPrecioganador", query = "SELECT s FROM Subasta s WHERE s.precioganador = :precioganador"),
+    @NamedQuery(name = "Subasta.findByCompradorUserIdUsuario", query = "SELECT s FROM Subasta s WHERE s.subastaPK.compradorUserIdUsuario = :compradorUserIdUsuario")})
 public class Subasta implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SubastaPK subastaPK;
@@ -66,10 +79,10 @@ public class Subasta implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRECIOGANADOR")
     private Double precioganador;
-    @ManyToMany(mappedBy = "subastaCollection")
-    private Collection<Producto> productoCollection;
+    @ManyToMany(mappedBy = "subastaList")
+    private List<Producto> productoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subasta")
-    private Collection<Oferta> ofertaCollection;
+    private List<Oferta> ofertaList;
     @JoinColumn(name = "COMPRADOR_USER_ID_USUARIO", referencedColumnName = "USER_ID_USUARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Comprador comprador;
@@ -180,20 +193,22 @@ public class Subasta implements Serializable {
         this.precioganador = precioganador;
     }
 
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
+    @XmlTransient
+    public List<Producto> getProductoList() {
+        return productoList;
     }
 
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
+    public void setProductoList(List<Producto> productoList) {
+        this.productoList = productoList;
     }
 
-    public Collection<Oferta> getOfertaCollection() {
-        return ofertaCollection;
+    @XmlTransient
+    public List<Oferta> getOfertaList() {
+        return ofertaList;
     }
 
-    public void setOfertaCollection(Collection<Oferta> ofertaCollection) {
-        this.ofertaCollection = ofertaCollection;
+    public void setOfertaList(List<Oferta> ofertaList) {
+        this.ofertaList = ofertaList;
     }
 
     public Comprador getComprador() {

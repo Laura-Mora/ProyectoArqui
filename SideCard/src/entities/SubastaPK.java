@@ -13,11 +13,10 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Embeddable
 public class SubastaPK implements Serializable {
-
     @Basic(optional = false)
     @Column(name = "IDSUBASTA")
     private BigInteger idsubasta;

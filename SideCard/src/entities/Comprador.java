@@ -7,7 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,17 +17,23 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Lalis
+ * @author Alejandro Castro M
  */
 @Entity
 @Table(name = "COMPRADOR")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Comprador.findAll", query = "SELECT c FROM Comprador c")})
+    @NamedQuery(name = "Comprador.findAll", query = "SELECT c FROM Comprador c"),
+    @NamedQuery(name = "Comprador.findByUserIdUsuario", query = "SELECT c FROM Comprador c WHERE c.userIdUsuario = :userIdUsuario"),
+    @NamedQuery(name = "Comprador.findByUserUsername", query = "SELECT c FROM Comprador c WHERE c.userUsername = :userUsername"),
+    @NamedQuery(name = "Comprador.findByUserContrasena", query = "SELECT c FROM Comprador c WHERE c.userContrasena = :userContrasena"),
+    @NamedQuery(name = "Comprador.findByUserNombre", query = "SELECT c FROM Comprador c WHERE c.userNombre = :userNombre")})
 public class Comprador implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -44,7 +50,7 @@ public class Comprador implements Serializable {
     @Column(name = "USER_NOMBRE")
     private String userNombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comprador")
-    private Collection<Subasta> subastaCollection;
+    private List<Subasta> subastaList;
 
     public Comprador() {
     }
@@ -92,12 +98,13 @@ public class Comprador implements Serializable {
         this.userNombre = userNombre;
     }
 
-    public Collection<Subasta> getSubastaCollection() {
-        return subastaCollection;
+    @XmlTransient
+    public List<Subasta> getSubastaList() {
+        return subastaList;
     }
 
-    public void setSubastaCollection(Collection<Subasta> subastaCollection) {
-        this.subastaCollection = subastaCollection;
+    public void setSubastaList(List<Subasta> subastaList) {
+        this.subastaList = subastaList;
     }
 
     @Override

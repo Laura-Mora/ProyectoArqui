@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Alejandro Castro M
  */
 @Stateless
-public class ProveedorFacade extends AbstractFacade<Proveedor> implements ProveedorFacadeRemote {
+public class ProveedorFacade extends AbstractFacade<Proveedor> implements Logica.ProveedorFacadeRemote {
     @PersistenceContext(unitName = "EProcurePU")
     private EntityManager em;
 
