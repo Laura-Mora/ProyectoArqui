@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alejandro Castro M
+ * @author Alejandro_Castro_M
  */
 @Entity
 @Table(name = "SUBASTA")

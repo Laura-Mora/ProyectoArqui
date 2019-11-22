@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Logica;
+package logica;
 
-import entities.Oferta;
+import entities.Subasta;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Alejandro Castro M
+ * @author Alejandro_Castro_M
  */
 @Stateless
-public class OfertaFacade extends AbstractFacade<Oferta> implements Logica.OfertaFacadeRemote {
+public class SubastaFacade extends AbstractFacade<Subasta> implements logica.SubastaFacadeRemote {
     @PersistenceContext(unitName = "EProcure_NegocioPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class OfertaFacade extends AbstractFacade<Oferta> implements Logica.Ofert
         return em;
     }
 
-    public OfertaFacade() {
-        super(Oferta.class);
+    public SubastaFacade() {
+        super(Subasta.class);
     }
     
 }

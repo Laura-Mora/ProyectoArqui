@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Logica;
+package logica;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author Alejandro Castro M
+ * @author Alejandro_Castro_M
  */
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;

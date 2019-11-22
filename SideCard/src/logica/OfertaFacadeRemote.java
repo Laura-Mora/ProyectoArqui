@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Logica;
+package logica;
 
 import entities.Oferta;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author Alejandro Castro M
+ * @author Alejandro_Castro_M
  */
 @Remote
 public interface OfertaFacadeRemote {
